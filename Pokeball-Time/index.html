@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>PokéBall Time Configuration</title>
+  <link rel='stylesheet' type='text/css' href='css/slate.min.css'>
+  <script src='js/slate.min.js'></script>
+  <style>
+  .title {
+    padding: 15px 10px;
+    text-transform: uppercase;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #888888;
+    text-align: center;
+  }
+  </style>
+  </head>
+
+  <body>
+    <h1 class='title'>PokéBall Time Configuration</h1>
+
+    <div class='item-container'>
+      <div class='item-container-content'>
+        <div class='item'>
+          Use this configuration page to customize the Pokéball Time watchface.
+        </div>
+      </div>
+    </div>
+
+    <div class='item-container'>
+      <div class='item-container-header'>Aesthetics</div>
+      <div class='item-container-content'>
+        <label class="item">
+          Background
+          <select id="background_select" name="select-1" dir='rtl' class="item-select">
+            <option class="item-select-option" value="Random">Shuffle</option>
+            <option class="item-select-option" value="Poke" selected>Poké ball</option>
+            <option class="item-select-option" value="Great">Great Ball</option>
+            <option class="item-select-option" value="Ultra">Ultra Ball</option>
+            <option class="item-select-option" value="Master">Master Ball</option>
+            <option class="item-select-option" value="Safari">Safari Ball</option>
+            <option class="item-select-option" value="Level">Level Ball</option>
+            <option class="item-select-option" value="Lure">Lure Ball</option>
+            <option class="item-select-option" value="Moon">Moon Ball</option>
+            <option class="item-select-option" value="Friend">Friend Ball</option>
+            <option class="item-select-option" value="Love">Love Ball</option>
+            <option class="item-select-option" value="Heavy">Heavy Ball</option>
+            <option class="item-select-option" value="Fast">Fast Ball</option>
+            <option class="item-select-option" value="Sport">Sport Ball</option>
+            <option class="item-select-option" value="Premier">Premier Ball</option>
+            <option class="item-select-option" value="Repeat">Repeat Ball</option>
+            <option class="item-select-option" value="Timer">Timer Ball</option>
+            <option class="item-select-option" value="Nest">Nest Ball</option>
+            <option class="item-select-option" value="Net">Net Ball</option>
+            <option class="item-select-option" value="Dive">Dive Ball</option>
+            <option class="item-select-option" value="Luxury">Luxury Ball</option>
+            <option class="item-select-option" value="Heal">Heal Ball</option>
+            <option class="item-select-option" value="Quick">Quick Ball</option>
+            <option class="item-select-option" value="Dusk">Dusk Ball</option>
+            <option class="item-select-option" value="Cherish">Cherish Ball</option>
+            <option class="item-select-option" value="Park">Park Ball</option>
+            <option class="item-select-option" value="Dream">Dream Ball</option>
+          </select>
+        </label>
+        <label class="item">
+          Time Font
+          <select id="font_select" name="select-1" dir='rtl' class="item-select">
+            <option class="item-select-option" value="LECO">LECO</option>
+            <option class="item-select-option" value="DOS">DOS</option>
+          </select>
+        </label>
+      </div>
+      <div class='item-container-footer'>
+        Change the looks of the watchface to suit your style.
+      </div>
+    </div>
+ 
+ 	<div class='item-container'>
+      <div class='item-container-header'>Date Options</div>
+      <div class='item-container-content'>
+        <label class="item">
+          Flick to see date
+          <input id="accel_select" type="checkbox" class="item-toggle" name="toggle-2" checked>        
+          </select>
+        </label>
+        <label class="item">
+          Date Format
+          <select id="date_select" name="select-1" dir='rtl' class="item-select">
+            <option class="item-select-option" value="UK">DD-MM</option>
+            <option class="item-select-option" value="US">MM-DD</option>
+          </select>
+        </label>
+      </div>
+      <div class='item-container-footer'>
+        Activate the ability to display date and select its format.
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-container-header">Shuffle Settings <a href="#">(Beta)</a></div>
+      <div class="item-container-content">
+    	<div class="item">
+		Update interval (minutes):
+        <label class="item">
+          <input id="interval_select" type="range" class="item-slider" name="slider-1" value="5" min="1" max="60" step="1">
+          <div class="item-input-wrapper item-slider-text">
+            <input id="interval_select_2" type="text" class="item-input" name="slider-1" value="5">
+          </div>
+        </label>
+      </div>
+      </div>
+      <div class='item-container-footer'>
+        <p>Default update interval is 1 minute if user setting is not successfully applied.</p>
+        <p>Background will update every "interval" minutes on the hour: For example, if set to 20 minutes, it will update on 20, 40, and 00. Randomizer will always update on 00.
+        Therefore, an interval that is a factor of 60 is recommended for even updates within the hour.</p>
+        <p>If the background remains stuck on Poké ball for too long, please ensure "Shuffle" is selected, and restart the watchface to reset shuffling.</p>
+      </div>
+    </div>
+
+    <div class='item-container'>
+      <div class='button-container'>
+        <input id='submit_button' type='button' class='item-button' value='SUBMIT'>
+      </div>
+    </div>
+  </body>
+  
+  <script>
+  //Retrieving options from user selection
+  function saveOptions() {
+    var backgroundSelect = document.getElementById("background_select");
+ 	var fontSelect = document.getElementById("font_select");
+ 	var accelSelect = document.getElementById("accel_select");
+ 	var dateSelect = document.getElementById("date_select");
+ 	var intervalSelect = document.getElementById("interval_select");
+ 	
+    var options = {
+      "background": backgroundSelect.options[backgroundSelect.selectedIndex].value,
+      "font": fontSelect.options[fontSelect.selectedIndex].value,
+      "accel": accelParse(accelSelect.checked),
+      "date": dateSelect.options[dateSelect.selectedIndex].value,
+      "interval":  intervalSelect.value
+    }
+    
+    // Save for next launch
+    localStorage["background"] = options["background"];
+    localStorage["font"] = options["font"];
+    localStorage["accel"] = accelSelect.checked;
+    localStorage["date"] = options["date"];
+    localStorage["interval"] = options["interval"];
+     
+    return options;
+  };
+  
+  //Just an interim solution to avoid fixing main watch face code
+  function accelParse(element){
+  	var result;
+  	if (element) {
+  		result = "On";
+  	} 
+  	else {
+  		result = "Off";
+  	}
+  	return result;
+  };
+ 
+  // Get query variables:
+  function getQueryParam(variable, default_) {
+    var query = location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split('=');
+      if (pair[0] == variable)
+      return decodeURIComponent(pair[1]);
+    }
+	  return default_ || false;
+  };
+  
+  var submitButton = document.getElementById("submit_button");
+  submitButton.addEventListener("click", 
+    function() {
+      console.log("Submit");
+ 
+      var options = saveOptions();
+
+      var return_to = getQueryParam('return_to', 'pebblejs://close#');
+      document.location = return_to + encodeURIComponent(JSON.stringify(options));
+      
+      //document.location = location;
+    }, 
+  false);
+  
+  (function() {
+    var backgroundSelect = document.getElementById("background_select");
+ 	var fontSelect = document.getElementById("font_select");
+ 	var accelSelect = document.getElementById("accel_select");
+ 	var dateSelect = document.getElementById("date_select");
+ 	var intervalSelect = document.getElementById("interval_select");
+ 	var intervalSelect2 = document.getElementById("interval_select_2");
+ 	
+    // Load any previously saved configuration, if available
+    if(localStorage["background"]) {
+      backgroundSelect.value = localStorage["background"];
+      fontSelect.value = localStorage["font"];
+      accelSelect.checked = JSON.parse(localStorage["accel"]);
+      dateSelect.value = localStorage["date"];
+      intervalSelect.value = localStorage["interval"];
+      intervalSelect2.value = localStorage["interval"];
+    }
+  })();
+  </script>
+</html>
